@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,18 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', function(){return view('auth.login');});
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/user/create/', function(){return view('auth.login');});
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/dashboard/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/deposit/form', [DashboardController::class, 'deposit'])->name('deposit');
+    Route::post('/deposit/add', [DashboardController::class, 'depositAdd'])->name('deposit.add');
+    Route::get('/withdrawal/form', [DashboardController::class, 'withdrawal'])->name('withdrawal');
 });
 
 require __DIR__.'/auth.php';
