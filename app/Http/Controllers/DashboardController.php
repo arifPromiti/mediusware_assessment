@@ -17,7 +17,7 @@ class DashboardController extends Controller
 {
     public function index(): View
     {
-        $records   = Transaction::where('user_id','=',Auth::id())->latest()->paginate(10);
+        $records    = Transaction::where('user_id','=',Auth::id())->latest()->paginate(10);
         $deposit    = Transaction::where([['user_id','=',Auth::id()],['transaction_type','=','Deposit']])->sum('amount');
         $withdrawal = Transaction::where([['user_id','=',Auth::id()],['transaction_type','=','Withdrawal']])->sum('amount');
         return view('dashboard',compact('records','deposit','withdrawal'));
@@ -117,7 +117,7 @@ class DashboardController extends Controller
 
         if(date('D') == 'Fri'){
             $fee = 0;
-        }elseif(($withdrawal+$balance) < 5000){
+        }elseif(($withdrawal+$balance) <= 5000){
             $fee = 0;
         }elseif($balance > 1000){
             $fee = (($balance - 1000)*0.015)/100;
@@ -131,7 +131,7 @@ class DashboardController extends Controller
     public function businessFee($balance){
         $withdrawal = Transaction::where([['user_id','=',Auth::id()],['transaction_type','=','Withdrawal']])->sum('amount');
 
-        if($withdrawal > 50000){
+        if(($withdrawal+$balance) >= 50000){
             $fee = ($balance*0.015)/100;
         }else{
             $fee = ($balance*0.025)/100;

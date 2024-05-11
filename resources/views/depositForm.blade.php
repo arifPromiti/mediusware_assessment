@@ -42,7 +42,7 @@
                         <div class="col-xl-12 col-lg-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Recent Deposits</h4>
+                                    <h4 class="card-title">Recent Deposits Transaction</h4>
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">
@@ -59,7 +59,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <button type="submit" class="btn btn-success">Add</button>
+                                                    <button type="submit" class="btn btn-success">Deposit</button>
                                                 </div>
                                             </div>
                                         </form>
