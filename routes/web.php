@@ -23,6 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/deposit/form', [DashboardController::class, 'deposit'])->name('deposit');
     Route::post('/deposit/add', [DashboardController::class, 'depositAdd'])->name('deposit.add');
     Route::get('/withdrawal/form', [DashboardController::class, 'withdrawal'])->name('withdrawal');
+    Route::post('/withdraw/add', [DashboardController::class, 'withdrawAdd'])->name('withdraw.add');
 });
 
 require __DIR__.'/auth.php';

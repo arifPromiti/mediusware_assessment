@@ -16,8 +16,8 @@ return new class extends Migration
             $table->bigInteger('user_id')->unsigned()->index()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->enum('transaction_type',['Deposit','Withdrawal']);
-            $table->double('amount');
-            $table->double('fee');
+            $table->double('amount',16,2);
+            $table->double('fee',16,2);
             $table->date('date');
             $table->timestamps();
         });

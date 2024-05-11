@@ -50,7 +50,7 @@
                                             @csrf
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <div class="form-group @error('deposit_balance') has-error @enderror"">
+                                                    <div class="form-group @error('deposit_balance') has-error @enderror">
                                                         <label for="deposit_balance">Deposit Amount</label>
                                                         <input type="text" class="form-control @error('deposit_balance') is-invalid @enderror" value="{{ old('deposit_balance')??0 }}" name="deposit_balance" id="deposit_balance"  required>
                                                         @error('deposit_balance')

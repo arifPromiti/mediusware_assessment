@@ -38,62 +38,31 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-xl-4 col-lg-6 col-12">
-                            <div class="card">
-                                <div class="card-content">
-                                    <div class="media align-items-stretch">
-                                        <div class="p-2 text-center bg-primary bg-darken-2">
-                                            <i class="icon-camera font-large-2 white"></i>
-                                        </div>
-                                        <div class="p-2 bg-gradient-x-primary white media-body">
-                                            <h5>Current Balance</h5>
-                                            <h5 class="text-bold-400 mb-0"><i class="feather icon-plus"></i>BDT {{ Auth::user()->balance }} /-</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-lg-6 col-12">
-                            <div class="card">
-                                <div class="card-content">
-                                    <div class="media align-items-stretch">
-                                        <div class="p-2 text-center bg-danger bg-darken-2">
-                                            <i class="icon-user font-large-2 white"></i>
-                                        </div>
-                                        <div class="p-2 bg-gradient-x-danger white media-body">
-                                            <h5>Total Deposit</h5>
-                                            <h5 class="text-bold-400 mb-0"><i class="feather icon-arrow-up"></i>BDT {{ $deposit }} /-</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-lg-6 col-12">
-                            <div class="card">
-                                <div class="card-content">
-                                    <div class="media align-items-stretch">
-                                        <div class="p-2 text-center bg-warning bg-darken-2">
-                                            <i class="icon-basket-loaded font-large-2 white"></i>
-                                        </div>
-                                        <div class="p-2 bg-gradient-x-warning white media-body">
-                                            <h5>Total Withdrawal</h5>
-                                            <h5 class="text-bold-400 mb-0"><i class="feather icon-arrow-down"></i>BDT {{ $withdrawal }} /-</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="row match-height">
                         <div class="col-xl-12 col-lg-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Recent transactions</h4>
+                                    <h4 class="card-title">Recent Withdrawal</h4>
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">
+                                        <form action="{{ route('withdraw.add') }}" method="post">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group @error('withdrawal_balance') has-error @enderror">
+                                                        <label for="withdrawal_balance">Withdrawal Amount</label>
+                                                        <input type="text" class="form-control @error('withdrawal_balance') is-invalid @enderror" value="{{ old('withdrawal_balance')??0 }}" name="withdrawal_balance" id="withdrawal_balance"  required>
+                                                        @error('withdrawal_balance')
+                                                            <p class="help-block">{{ $errors->first('withdrawal_balance') }}</p>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <button type="submit" class="btn btn-success">Add</button>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
                                     <div class="table-responsive">
                                         <table id="recent-orders" class="table table-hover mb-0 ps-container ps-theme-default">
@@ -111,13 +80,9 @@
                                                     <tr>
                                                         <td class="text-truncate">{{ $row->id }}</td>
                                                         <td class="text-truncate">{{ date('d-m-Y',strtotime($row->date)) }}</td>
-                                                        @if($row->transaction_type == 'Deposit')
-                                                            <td class="text-truncate"><span class="badge badge-success">Deposit</span></td>
-                                                        @else
-                                                            <td class="text-truncate"><span class="badge badge-warning">Withdrawal</span></td>
-                                                        @endif
+                                                        <td class="text-truncate"><span class="badge badge-warning">Withdrawal</span></td>
                                                         <td class="text-truncate">BDT {{ $row->amount }} /-</td>
-                                                        <td class="text-truncate">BDT {{ $row->fee }} /-</td>
+                                                        <td class="text-truncate">BDT {{ $row->amount }} /-</td>
                                                     </tr>
                                                 @empty
                                                     <tr>
